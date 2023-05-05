@@ -1217,6 +1217,7 @@ function manage(){
 			}
 			wrapper.innerHTML = ''
 			const slideClone = getSlideClone(slideIndex)
+      slideClone.setAttribute('sizes', '(max-width: 1200px) 90vw, 1200px')
 			wrapper.appendChild(slideClone)
 		}
 	}
