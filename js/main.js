@@ -2282,10 +2282,6 @@ function init() {
 
 // products shop show more
 const productShop = document.querySelectorAll('.product-shop');
-productShop.forEach(shop => {
-  placeDashedLine(shop);
-});
-
 window.addEventListener('resize', () => {
   productShop.forEach(shop => {
     placeDashedLine(shop);
@@ -2296,7 +2292,126 @@ function placeDashedLine(shop) {
   const button = shop.querySelector('.product-shop__show-more');
   const line = shop.querySelector('.product-shop__dashed-line');
   if (!button && !line) return;
-  
+
   const buttonHeight = button.getBoundingClientRect().height;
   line.style.top = `${buttonHeight / 2 + button.offsetTop}px`;
+}
+
+hideSimilarShops();
+
+function hideSimilarShops() {
+  const shops = [];
+  productShop.forEach(shop => {
+    shops.push(shop.dataset.shop);
+  });
+
+  const uniqueShops = Array.from(new Set(shops));
+  uniqueShops.forEach(shopName => {
+    const sameShops = document.querySelectorAll(`.product-shop[data-shop="${shopName}"]`);
+
+    if (sameShops.length < 2) return;
+    const visibleShop = sameShops[0];
+    const shopsWrapperArray = createShopsWrapper(visibleShop);
+    const wrapperForHiddenShops = shopsWrapperArray[0];
+    const listForHiddenShops = shopsWrapperArray[1];
+    const button = createShowMoreButton(visibleShop);
+
+    const allPrices = [];
+    let sign;
+
+    sameShops.forEach((shop, index) => {
+      let price = shop.querySelector('.price__value').textContent.trim();
+      sign = price.slice(-1).trim();
+      price = price.slice(0, price.length - 1).trim();
+      price = Number(price);
+
+      if (index !== 0) {
+        shop.remove();
+        listForHiddenShops.append(shop);
+        allPrices.push(price);
+      }
+    });
+
+    let minPrice = Math.min(...allPrices);
+    let maxPrice = Math.max(...allPrices);
+
+    let buttonHTML = '';
+    let priceText = '';
+
+    addTextToButton();
+    placeDashedLine(visibleShop);
+
+    button.addEventListener('click', () => {
+      const wrapperHeight = toggleHiddenShops(wrapperForHiddenShops, listForHiddenShops);
+      if (wrapperHeight === 0) {
+        button.innerHTML = 'Свернуть цены в этом магазине';
+        visibleShop.classList.add('product-shop--opened');
+      } else {
+        addTextToButton();
+        visibleShop.classList.remove('product-shop--opened');
+      }
+    });
+
+    function addTextToButton() {
+      if (sameShops.length - 1 >= 2 &&  sameShops.length - 1 < 5) {
+        priceText = 'другие цены';
+      } else {
+        priceText = 'других цен';
+      }
+  
+      if (sameShops.length - 1 === 1) {
+        buttonHTML = `Ещё <span>1</span> цена в этом магазине: <span>${minPrice.toFixed(2)}&nbsp;${sign}</span>`;
+      }  else if (minPrice === maxPrice) {
+        buttonHTML = `Ещё <span>${sameShops.length - 1}</span> ${priceText} в этом магазине от <span>${minPrice.toFixed(2)}&nbsp;${sign}</span>`;
+      } else {
+        buttonHTML = `Ещё <span>${sameShops.length - 1}</span> ${priceText} в этом магазине от <span>${minPrice.toFixed(2)}&nbsp;${sign}</span> до <span>${maxPrice.toFixed(2)}&nbsp;${sign}</span>`;
+      }
+
+      button.innerHTML = buttonHTML;
+    }
+  });
+}
+
+function createShowMoreButton(parent) {
+  const button = document.createElement('button');
+  button.className = 'product-shop__show-more';
+  button.setAttribute('type', 'button');
+
+  const infoSection = parent.querySelector('.product-shop__info');
+  infoSection.append(button);
+
+  const line = document.createElement('span');
+  line.className = 'product-shop__dashed-line';
+  infoSection.append(line);
+
+  return button;
+}
+
+function createShopsWrapper(parent) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'shops-wrapper';
+
+  const list = document.createElement('div');
+  list.className = 'shops-wrapper__list';
+
+  wrapper.append(list);
+  parent.insertAdjacentElement('afterend', wrapper);
+  return [wrapper, list];
+}
+
+function toggleHiddenShops(wrapper, list) {
+  const listHeight = list.getBoundingClientRect().height;
+  const wrapperHeight = wrapper.getBoundingClientRect().height;
+
+  if (wrapperHeight === 0) {
+    wrapper.style.height = `${listHeight}px`;
+    setTimeout(() => {
+      wrapper.style.overflow = 'visible';
+    }, 300);
+  } else {
+    wrapper.style.height = 0;
+    wrapper.style.overflow = 'hidden';
+  }
+
+  return wrapperHeight;
 }
