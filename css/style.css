@@ -3148,7 +3148,8 @@ svg[data-conflict-id].fixed.fixed--prev {
 }
 
 .product-shop__footer {
-  margin-left: 10px;
+/* временно разместили вровень с названием, пока нет описания на цене */
+/*  margin-left: 10px; */
   font-size: 12px;
 }
 
