@@ -2282,19 +2282,29 @@ function init() {
 
 // products shop show more
 const productShop = document.querySelectorAll('.product-shop');
-window.addEventListener('resize', () => {
-  productShop.forEach(shop => {
-    placeDashedLine(shop);
-  });
-});
+window.addEventListener('resize', correctShopElementsPositions);
+window.addEventListener('load', correctShopElementsPositions);
 
-function placeDashedLine(shop) {
+function correctShopElementsPositions() {
+  productShop.forEach(shop => {
+    correctPositions(shop);
+  });
+}
+
+function correctPositions(shop) {
+  const info = shop.querySelector('.product-shop__info');
   const button = shop.querySelector('.product-shop__show-more');
   const line = shop.querySelector('.product-shop__dashed-line');
+  const infoWidth = info.getBoundingClientRect().width;
   if (!button && !line) return;
 
   const buttonHeight = button.getBoundingClientRect().height;
   line.style.top = `${buttonHeight / 2 + button.offsetTop}px`;
+  button.style.left = `${info.offsetLeft}px`;
+  button.style.top = `calc(100% - ${buttonHeight}px)`;
+  button.style.width = `${infoWidth}px`;
+
+  shop.style.paddingBottom = `${buttonHeight + 20}px`
 }
 
 hideSimilarShops();
@@ -2311,6 +2321,7 @@ function hideSimilarShops() {
 
     if (sameShops.length < 2) return;
     const visibleShop = sameShops[0];
+    visibleShop.classList.add('product-shop--visible')
     const shopsWrapperArray = createShopsWrapper(visibleShop);
     const wrapperForHiddenShops = shopsWrapperArray[0];
     const listForHiddenShops = shopsWrapperArray[1];
@@ -2339,7 +2350,7 @@ function hideSimilarShops() {
     let priceText = '';
 
     addTextToButton();
-    placeDashedLine(visibleShop);
+    correctPositions(visibleShop);
 
     button.addEventListener('click', () => {
       const wrapperHeight = toggleHiddenShops(wrapperForHiddenShops, listForHiddenShops);
@@ -2376,13 +2387,11 @@ function createShowMoreButton(parent) {
   const button = document.createElement('button');
   button.className = 'product-shop__show-more';
   button.setAttribute('type', 'button');
-
-  const infoSection = parent.querySelector('.product-shop__info');
-  infoSection.append(button);
+  parent.append(button);
 
   const line = document.createElement('span');
   line.className = 'product-shop__dashed-line';
-  infoSection.append(line);
+  parent.append(line);
 
   return button;
 }
@@ -2405,12 +2414,8 @@ function toggleHiddenShops(wrapper, list) {
 
   if (wrapperHeight === 0) {
     wrapper.style.height = `${listHeight}px`;
-    setTimeout(() => {
-      wrapper.style.overflow = 'visible';
-    }, 300);
   } else {
     wrapper.style.height = 0;
-    wrapper.style.overflow = 'hidden';
   }
 
   return wrapperHeight;
