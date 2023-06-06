@@ -2278,3 +2278,25 @@ function init() {
 
   readyToManage = Promise.all(promises).then(handleAssemblageButtons);
 }
+
+
+// products shop show more
+const productShop = document.querySelectorAll('.product-shop');
+productShop.forEach(shop => {
+  placeDashedLine(shop);
+});
+
+window.addEventListener('resize', () => {
+  productShop.forEach(shop => {
+    placeDashedLine(shop);
+  });
+});
+
+function placeDashedLine(shop) {
+  const button = shop.querySelector('.product-shop__show-more');
+  const line = shop.querySelector('.product-shop__dashed-line');
+  if (!button && !line) return;
+  
+  const buttonHeight = button.getBoundingClientRect().height;
+  line.style.top = `${buttonHeight / 2 + button.offsetTop}px`;
+}
