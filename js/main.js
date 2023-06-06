@@ -2294,8 +2294,8 @@ function correctShopElementsPositions() {
 function correctPositions(shop) {
   const info = shop.querySelector('.product-shop__info');
   const button = shop.querySelector('.product-shop__show-more');
-  const line = shop.querySelector('.product-shop__dashed-line');
   const infoWidth = info.getBoundingClientRect().width;
+  const line = shop.querySelector('.product-shop__dashed-line');
   if (!button && !line) return;
 
   const buttonHeight = button.getBoundingClientRect().height;
@@ -2361,18 +2361,22 @@ function hideSimilarShops() {
         addTextToButton();
         visibleShop.classList.remove('product-shop--opened');
       }
+
+      const line = visibleShop.querySelector('.product-shop__dashed-line');
+      const buttonHeight = button.getBoundingClientRect().height;
+      line.style.top = `${buttonHeight / 2 + button.offsetTop}px`;
     });
 
     function addTextToButton() {
-      if (sameShops.length - 1 >= 2 &&  sameShops.length - 1 < 5) {
+      if (sameShops.length - 1 >= 2 && sameShops.length - 1 < 5) {
         priceText = 'другие цены';
       } else {
         priceText = 'других цен';
       }
-  
+
       if (sameShops.length - 1 === 1) {
         buttonHTML = `Ещё <span>1</span> цена в этом магазине: <span>${minPrice.toFixed(2)}&nbsp;${sign}</span>`;
-      }  else if (minPrice === maxPrice) {
+      } else if (minPrice === maxPrice) {
         buttonHTML = `Ещё <span>${sameShops.length - 1}</span> ${priceText} в этом магазине от <span>${minPrice.toFixed(2)}&nbsp;${sign}</span>`;
       } else {
         buttonHTML = `Ещё <span>${sameShops.length - 1}</span> ${priceText} в этом магазине от <span>${minPrice.toFixed(2)}&nbsp;${sign}</span> до <span>${maxPrice.toFixed(2)}&nbsp;${sign}</span>`;

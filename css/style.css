@@ -3189,8 +3189,9 @@ svg[data-conflict-id].fixed.fixed--prev {
   position: absolute;
   left: -15px;
   right: -15px;
+  height: 1px;
+  background-image: repeating-linear-gradient(to right, transparent 0 5px, #212020 5px 10px);
   transform: translateY(-15px);
-  border-bottom: 1px dashed #212020;
 }
 
 .shops-wrapper {
@@ -3200,7 +3201,21 @@ svg[data-conflict-id].fixed.fixed--prev {
 }
 
 .shops-wrapper__list .product-shop:not(:last-child) {
-  border-bottom-style: dashed;
+  border-bottom-color: transparent;
+}
+
+.shops-wrapper__list .product-shop:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-image: repeating-linear-gradient(to right, #212020 0 5px, transparent 5px 10px);
+}
+
+.shops-wrapper__list .product-shop:last-child {
+  border-bottom: 1px solid #212020;
 }
 
 .product-shop__footer-item-value {
