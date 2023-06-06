@@ -3189,7 +3189,7 @@ svg[data-conflict-id].fixed.fixed--prev {
   position: absolute;
   left: -15px;
   right: -15px;
-  transform: translateY(-50%);
+  transform: translateY(-15px);
   border-bottom: 1px dashed #212020;
 }
 
