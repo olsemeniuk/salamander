@@ -3032,8 +3032,8 @@ svg[data-conflict-id].fixed.fixed--prev {
   display: -ms-flexbox;
   display: flex;
   font-size: 16px;
-  padding-left: 34px;
-  margin: 0 10px;
+  padding-left: 44px;
+  padding-right: 10px;
   border-bottom: 1px solid #212020;
   overflow: auto;
 }
