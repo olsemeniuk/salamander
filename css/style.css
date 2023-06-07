@@ -3076,6 +3076,8 @@ svg[data-conflict-id].fixed.fixed--prev {
   align-items: center;
   padding: 15px 0;
   position: relative;
+  transition: all 0.3s;
+  flex-wrap: wrap;
 }
 
 .product-shop .no-shops {
@@ -3134,7 +3136,7 @@ svg[data-conflict-id].fixed.fixed--prev {
   -ms-flex-pack: justify;
   justify-content: space-between;
 
-  flex-grow: 1;
+  width: calc(100% - 464px);
 }
 
 .product-shop__product-title {
@@ -3157,16 +3159,11 @@ svg[data-conflict-id].fixed.fixed--prev {
 
 .product-shops__shop.product-shop--opened {
   border-bottom-color: transparent;
-}
-
-.product-shops__shop.product-shop--visible {
-  padding-bottom: 35px;
+  padding-bottom: 5px;
 }
 
 .product-shop__show-more {
-  position: absolute;
-  top: 100%;
-  transform: translateY(-15px);
+  position: relative;
   z-index: 2;
   min-width: 100px;
   min-height: 20px;
@@ -3175,6 +3172,14 @@ svg[data-conflict-id].fixed.fixed--prev {
   color: #1b1a1a;
   background-color: #bfbfbf;
   border-radius: 10px;
+}
+
+.product-shop__show-more-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 20px;
+  margin-top: 5px;
+  transition: all 0.3s;
 }
 
 .product-shop__show-more:hover {
@@ -3187,17 +3192,21 @@ svg[data-conflict-id].fixed.fixed--prev {
 
 .product-shop__dashed-line {
   position: absolute;
+  top: 50%;
   left: -15px;
   right: -15px;
   height: 1px;
   background-image: repeating-linear-gradient(to right, transparent 0 5px, #212020 5px 10px);
-  transform: translateY(-15px);
 }
 
 .shops-wrapper {
   height: 0;
   overflow: hidden;
   transition: height 0.3s ease-in-out;
+}
+
+.shops-wrapper__list .product-shop:first-child {
+  padding-top: 0;
 }
 
 .shops-wrapper__list .product-shop:not(:last-child) {
@@ -4913,6 +4922,10 @@ svg[data-conflict-id].fixed.fixed--prev {
     margin: 0px 20px
   }
 
+  .product-shop__info {
+    width: calc(100% - 424px);
+  }
+
   .footer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -5125,6 +5138,10 @@ svg[data-conflict-id].fixed.fixed--prev {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+  }
+
+  .product-shop__info {
+    width: 100%;
   }
 
   .product-shop__image {

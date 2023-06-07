@@ -2293,18 +2293,27 @@ function correctShopElementsPositions() {
 
 function correctPositions(shop) {
   const info = shop.querySelector('.product-shop__info');
+  const buttonWrapper = shop.querySelector('.product-shop__show-more-wrapper');
   const button = shop.querySelector('.product-shop__show-more');
   const infoWidth = info.getBoundingClientRect().width;
   const line = shop.querySelector('.product-shop__dashed-line');
   if (!button && !line) return;
 
   const buttonHeight = button.getBoundingClientRect().height;
-  line.style.top = `${buttonHeight / 2 + button.offsetTop}px`;
   button.style.left = `${info.offsetLeft}px`;
-  button.style.top = `calc(100% - ${buttonHeight}px)`;
   button.style.width = `${infoWidth}px`;
+  buttonWrapper.style.height = `${buttonHeight}px`;
 
-  shop.style.paddingBottom = `${buttonHeight + 20}px`
+  const shopsWrappers = document.querySelectorAll('.shops-wrapper');
+  shopsWrappers.forEach(shopWrapper => {
+    const list = shopWrapper.querySelector('.shops-wrapper__list');
+    const listHeight = list.getBoundingClientRect().height;
+    const isOpened = shopWrapper.classList.contains('shops-wrapper--opened');
+
+    if (isOpened) {
+      shopWrapper.style.height = `${listHeight}px`;
+    }
+  });
 }
 
 hideSimilarShops();
@@ -2362,9 +2371,7 @@ function hideSimilarShops() {
         visibleShop.classList.remove('product-shop--opened');
       }
 
-      const line = visibleShop.querySelector('.product-shop__dashed-line');
-      const buttonHeight = button.getBoundingClientRect().height;
-      line.style.top = `${buttonHeight / 2 + button.offsetTop}px`;
+      correctPositions(visibleShop);
     });
 
     function addTextToButton() {
@@ -2388,14 +2395,19 @@ function hideSimilarShops() {
 }
 
 function createShowMoreButton(parent) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'product-shop__show-more-wrapper';
+
   const button = document.createElement('button');
   button.className = 'product-shop__show-more';
   button.setAttribute('type', 'button');
-  parent.append(button);
+  wrapper.append(button);
 
   const line = document.createElement('span');
   line.className = 'product-shop__dashed-line';
-  parent.append(line);
+  wrapper.append(line);
+
+  parent.append(wrapper);
 
   return button;
 }
@@ -2415,11 +2427,14 @@ function createShopsWrapper(parent) {
 function toggleHiddenShops(wrapper, list) {
   const listHeight = list.getBoundingClientRect().height;
   const wrapperHeight = wrapper.getBoundingClientRect().height;
+  const isOpened = wrapper.classList.contains('shops-wrapper--opened');
 
-  if (wrapperHeight === 0) {
-    wrapper.style.height = `${listHeight}px`;
-  } else {
+  if (isOpened) {
     wrapper.style.height = 0;
+    wrapper.classList.remove('shops-wrapper--opened');
+  } else {
+    wrapper.style.height = `${listHeight}px`;
+    wrapper.classList.add('shops-wrapper--opened');
   }
 
   return wrapperHeight;
