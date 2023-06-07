@@ -2286,7 +2286,7 @@ window.addEventListener('resize', () => {
   correctShopElementsPositions();
   setTimeout(() => {
     correctShopElementsPositions();
-  }, 200);
+  }, 300);
 });
 window.addEventListener('load', correctShopElementsPositions);
 
