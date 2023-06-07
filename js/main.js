@@ -2282,7 +2282,12 @@ function init() {
 
 // products shop show more
 const productShop = document.querySelectorAll('.product-shop');
-window.addEventListener('resize', correctShopElementsPositions);
+window.addEventListener('resize', () => {
+  correctShopElementsPositions();
+  setTimeout(() => {
+    correctShopElementsPositions();
+  }, 200);
+});
 window.addEventListener('load', correctShopElementsPositions);
 
 function correctShopElementsPositions() {
