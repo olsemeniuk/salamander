@@ -455,101 +455,106 @@ function unhoverConflict(conflictId, target = document) {
 }
 
 function setConflictsLines(id, conflicts, target) {
-  if (!target) target = document;
-  if (!conflicts[0].offsetParent) return;
-  const top1 = parseInt(conflicts[0].offsetParent.offsetTop)
-  const topN = parseInt(conflicts[conflicts.length - 1].offsetParent.offsetTop)
-  const len = topN - top1
-  const lineHeight = 8
-  const topAbs = top1 + lineHeight
-  const createConflictDash = offsetTop => `
-		<polyline
-			points="
-				1,${offsetTop - top1 + 5.5}
-				6,${offsetTop - top1 + 5.5}
-			"
-			stroke="#e0a006"
-		/>
-		<polyline
-			points="
-				7.5,${offsetTop - top1}
-				7.5,${offsetTop - top1 + 11}
-			"
-			stroke="#e0a006"
-		/>
-	`
-  const linesToPart = conflicts
-    .map(confilct => parseInt(confilct.offsetParent.offsetTop))
-    .map(createConflictDash)
-    .join('')
-  const line = `
-		<svg data-conflict-id="${id}"
-			class="conflict-line-svg${target.querySelector(`.conflicts__item--question[data-conflict-id="${id}"]`) ? " conflict-line-svg--question" : ""}"
-			style="position: absolute;top:${topAbs - 6}px;left:50px;"
-			width="8" height="${len + 12}" viewBox="0 0 8 ${len + 12}"
-			xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-		>
-			<polyline
-				points="
-					1.5,6
-					1.5,${len + 6}
-				"
-				fill="transparent" stroke="#e0a006" stroke-dasharray="4px"
-			/>
-			${linesToPart}
-		</svg>
-	`
-  target.querySelector('.sidebar__pc-parts').insertAdjacentHTML('beforeend', line)
+  setTimeout(() => {
+    if (!target) target = document;
+    if (!conflicts[0].offsetParent) return;
+    const top1 = parseInt(conflicts[0].offsetParent.offsetTop)
+    const topN = parseInt(conflicts[conflicts.length - 1].offsetParent.offsetTop)
+    const len = topN - top1
+    const lineHeight = 8
+    const topAbs = top1 + lineHeight
+    const createConflictDash = offsetTop => `
+      <polyline
+        points="
+          1,${offsetTop - top1 + 5.5}
+          6,${offsetTop - top1 + 5.5}
+        "
+        stroke="#e0a006"
+      />
+      <polyline
+        points="
+          7.5,${offsetTop - top1}
+          7.5,${offsetTop - top1 + 11}
+        "
+        stroke="#e0a006"
+      />
+    `
+    const linesToPart = conflicts
+      .map(confilct => parseInt(confilct.offsetParent.offsetTop))
+      .map(createConflictDash)
+      .join('')
+    const line = `
+      <svg data-conflict-id="${id}"
+        class="conflict-line-svg${target.querySelector(`.conflicts__item--question[data-conflict-id="${id}"]`) ? " conflict-line-svg--question" : ""}"
+        style="position: absolute;top:${topAbs - 6}px;left:50px;"
+        width="8" height="${len + 12}" viewBox="0 0 8 ${len + 12}"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <polyline
+          points="
+            1.5,6
+            1.5,${len + 6}
+          "
+          fill="transparent" stroke="#e0a006" stroke-dasharray="4px"
+        />
+        ${linesToPart}
+      </svg>
+    `
+    target.querySelector('.sidebar__pc-parts').insertAdjacentHTML('beforeend', line)
+  }, 210);
 }
 
 function setConflictsLines2(id, ...conflicts) {
-  if (!conflicts[0]) {
-    console.log('setConflictsLines2 return coz no conflicts');
-    return;
-  }
-  const parentTop = parseInt(
-    document.querySelector('.assemblage-parts').getBoundingClientRect().top
-  )
-  const top1 = parseInt(conflicts[0].getBoundingClientRect().top) - parentTop
-  const topN = parseInt(conflicts[conflicts.length - 1].getBoundingClientRect().top) - parentTop
-  const len = topN - top1
-  const lineHeight = 10 + 7 //changed
-  const topAbs = top1 + lineHeight
-  const createConflictDash = conflict => `
-		<polyline
-			points="
-				1,${conflict.getBoundingClientRect().top - parentTop - top1 + 5.5}
-				6,${conflict.getBoundingClientRect().top - parentTop - top1 + 5.5}
-			"
-			stroke="#e0a006"
-		/>
-		<polyline
-			points="
-				7.5,${conflict.getBoundingClientRect().top - parentTop - top1}
-				7.5,${conflict.getBoundingClientRect().top - parentTop - top1 + 11}
-			"
-			stroke="#e0a006"
-		/>
-	`
-  const linesToPart = conflicts.map(createConflictDash).join('')
-  const line = `
-		<svg data-conflict-id="${id}"
-			style="position: absolute;top:${topAbs}px;left:0px;"
-			${document.querySelector(`.conflicts__item--question[data-conflict-id="${id}"]`) ? 'class="conflict-line-svg--question"' : ""}"
-			width="8" height="${len + 12}" viewBox="0 0 8 ${len + 12}"
-			xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-		>
-			<polyline
-				points="
-					1.5,6
-					1.5,${len + 6}
-				"
-				fill="transparent" stroke="#e0a006" stroke-dasharray="4px"
-			/>
-			${linesToPart}
-		</svg>
-	`
-  document.querySelector('.assemblage-parts').insertAdjacentHTML('beforeend', line)
+  setTimeout(() => {
+
+    if (!conflicts[0]) {
+      console.log('setConflictsLines2 return coz no conflicts');
+      return;
+    }
+    const parentTop = parseInt(
+      document.querySelector('.assemblage-parts').getBoundingClientRect().top
+    )
+    const top1 = parseInt(conflicts[0].getBoundingClientRect().top) - parentTop
+    const topN = parseInt(conflicts[conflicts.length - 1].getBoundingClientRect().top) - parentTop
+    const len = topN - top1
+    const lineHeight = 10 + 7 //changed
+    const topAbs = top1 + lineHeight
+    const createConflictDash = conflict => `
+      <polyline
+        points="
+          1,${conflict.getBoundingClientRect().top - parentTop - top1 + 5.5}
+          6,${conflict.getBoundingClientRect().top - parentTop - top1 + 5.5}
+        "
+        stroke="#e0a006"
+      />
+      <polyline
+        points="
+          7.5,${conflict.getBoundingClientRect().top - parentTop - top1}
+          7.5,${conflict.getBoundingClientRect().top - parentTop - top1 + 11}
+        "
+        stroke="#e0a006"
+      />
+    `
+    const linesToPart = conflicts.map(createConflictDash).join('')
+    const line = `
+      <svg data-conflict-id="${id}"
+        style="position: absolute;top:${topAbs}px;left:0px;"
+        ${document.querySelector(`.conflicts__item--question[data-conflict-id="${id}"]`) ? 'class="conflict-line-svg--question"' : ""}"
+        width="8" height="${len + 12}" viewBox="0 0 8 ${len + 12}"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <polyline
+          points="
+            1.5,6
+            1.5,${len + 6}
+          "
+          fill="transparent" stroke="#e0a006" stroke-dasharray="4px"
+        />
+        ${linesToPart}
+      </svg>
+    `
+    document.querySelector('.assemblage-parts').insertAdjacentHTML('beforeend', line)
+  }, 210);
 }
 
 //---
@@ -575,7 +580,10 @@ function managePageConflicts() {
 
       const getTitleLink = conflict => conflict.querySelector(titleLinkSelector)
       titleLinks.addEventListener('click', () => {
-        part.classList.toggle('product--collapsed')
+        part.classList.toggle('product--collapsed');
+
+        managePriceAndButtonMove(part);
+        manageAssemblagePartHeight(part);
 
         const conflictsSVG = target.querySelectorAll('svg[data-conflict-id]')
         const fixedSVG = target.querySelector('svg.fixed')
@@ -595,7 +603,7 @@ function managePageConflicts() {
             .querySelector(`svg[data-conflict-id~="${fixedSVG.dataset.conflictId}"]`)
             .classList.add('fixed')
         }
-      })
+      });
       //}
     })
   }
@@ -635,6 +643,57 @@ function managePageConflicts() {
     })
   }
 }
+
+const assemblageParts = document.querySelectorAll('.assemblage-parts__part');
+if (assemblageParts.length > 0) {
+  assemblageParts.forEach(part => {
+    managePriceAndButtonMove(part);
+  });
+}
+
+function managePriceAndButtonMove(part) {
+  const priceAndButton = part.querySelector('.product__price-and-buttons');
+  const title = part.querySelector('.product__title');
+  if (!priceAndButton || !title) return;
+
+  const mainPart = part.querySelector('.product__main-part');
+  const productDescr = part.querySelector('.product__hidden-description');
+  const priceAndButtonHeight = priceAndButton.getBoundingClientRect().height;
+  const isOpened = part.classList.contains('product--collapsed');
+
+  if (isOpened) {
+    setTimeout(() => {
+      title.append(priceAndButton);
+      mainPart.style.paddingBottom = `${priceAndButtonHeight}px`;
+    }, 200);
+
+  } else {
+    productDescr.insertAdjacentElement('afterend', priceAndButton);
+    mainPart.style.paddingBottom = `0px`;
+  }
+}
+
+function manageAssemblagePartHeight(part) {
+  const partCover = part.querySelector('.product__wrapper-cover');
+  const partWrapper = part.querySelector('.product__wrapper');
+
+  if (!partCover) return;
+  const isOpened = part.classList.contains('product--collapsed');
+  const wrapperHeight = partWrapper.getBoundingClientRect().height;
+
+  if (!isOpened) {
+    partCover.style.height = `${wrapperHeight}px`;
+    setTimeout(() => {
+      partCover.style.height = `auto`;
+    }, 200);
+  } else {
+    partCover.style.height = `${wrapperHeight}px`;
+    setTimeout(() => {
+      partCover.style.height = '0px';
+    });
+  }
+}
+
 
 function manageConflicts(target) {
   if (!target) target = document.querySelector('.sidebars');
