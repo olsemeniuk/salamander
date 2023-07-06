@@ -196,7 +196,7 @@ class Assemblage {
                 <li class="pc-parts__item" data-icon="cooler" data-category="cooler"  data-name-choosing="охлаждения" data-name-choose="охлаждение" data-multi="true"></li>
                 <li class="pc-parts__item" data-icon="periphery" data-category="periphery"  data-name-choosing="периферии" data-name-choose="периферию" data-multi="true"></li>
                 <li class="pc-parts__item" data-icon="case" data-category="case"  data-name-choosing="корпуса" data-name-choose="корпус"></li>
-                
+
             </ul>
             <div class="sidebar__conflicts conflicts">
                 <div class="conflicts__title"></div>
@@ -574,7 +574,7 @@ class Assemblage {
     if (pos >= 0) {
       if (activeAssemblegesIds.length <= 1) {
         console.log('   deactivate return ', activeAssemblegesIds.length, pos, this.chooseButton);
-        //TODO  
+        //TODO
         return;
       }
       activeAssemblegesIds.splice(pos, 1);
@@ -670,7 +670,7 @@ class Assemblage {
       let html = '';
 
       if (this.items.length < 1) return `
-            <span class="placeholder-notification"> 
+            <span class="placeholder-notification">
                 Вы пока не добавили ни одной комплектующей ${smile('sad')}
             </span>
             `;
@@ -831,9 +831,9 @@ class Assemblage {
                     </div>
                     <div class="product__assembly-body">
                         <div class="product__items">
-                        
+
                             ${generateMainElements()}
-                        
+
                         </div>
                         <div class="product__data">
                             ${generateElements()}
@@ -993,7 +993,7 @@ function message(typeOrOptions, text, time) {
   if (text) {
     t.innerText += (t.innerText ? ': ' : '') + text;
   }
-  //t = 
+  //t =
 
   // m.innerHTML = `<span class="svg-icon icon-to-assemblage"></span> <span>test</span>`;
 
@@ -1467,14 +1467,14 @@ function handleAssemblageButtons() {
     if (i.is) {
       if (i.number) {
         if (is_text) e.querySelector('span:last-of-type').innerText = 'Сборка ' + i.number;
-        //if (i.name) 
+        //if (i.name)
         e.setAttribute('title', `${i.name ? '"' + i.name + '"' : 'Эта сборка'} уже среди активных сборок (сборка ${i.number})`);
         e.querySelector('span.svg-icon').classList.add('added');
         e.onclick = onAddedAssemblageClick;
       }
       else {
         if (is_text) e.querySelector('span:last-of-type').innerText = '№' + i.id;
-        //if (i.name) 
+        //if (i.name)
         e.setAttribute('title', `У вас есть ${i.name ? '"' + i.name + '"' : 'эта сборка'} (№${i.id}). Нажмите, чтобы добавить в активные сборки`);
         e.querySelector('span.svg-icon').classList.remove('added');
 
@@ -1582,7 +1582,7 @@ function handleFilter(filterData) {
       //debugger;
     });
     //readyToManage.then(() => filter.root.querySelector('.sidebar__btn--filter')?.click());
-    //setTimeout(() => filter.root.querySelector('.sidebar__btn--filter')?.click(), 1); 
+    //setTimeout(() => filter.root.querySelector('.sidebar__btn--filter')?.click(), 1);
   }
 }
 
@@ -1991,7 +1991,7 @@ async function onLoadMore(e) {
 
     let div = create(null, 'div');
     div.innerHTML = json?.response?.html;
-    //TODO colud be 
+    //TODO colud be
     let products = div.querySelectorAll('.section__products > .product');
     if (products.length < 1) throw new Error('No products to display!');
 
@@ -2044,7 +2044,7 @@ document.addEventListener('click', (e) => {
   }
   //console.log('click:', e);
   // if (e.target instanceof HTMLAnchorElement) {
-  //     e.preventDefault(); 
+  //     e.preventDefault();
   //     console.log('link press:', e.target.href);
   // }
   if (!e.path) e.path = e.composedPath();
@@ -2073,7 +2073,7 @@ document.addEventListener('click', (e) => {
     }
   }
 
-  //e.preventDefault(); 
+  //e.preventDefault();
 });
 
 async function loadPage(href, options = {}) {
@@ -2249,7 +2249,7 @@ function local(name) {
 
 
 
-//init 
+//init
 
 
 init();
@@ -2277,170 +2277,4 @@ function init() {
   handleSortChange();
 
   readyToManage = Promise.all(promises).then(handleAssemblageButtons);
-}
-
-
-// products shop show more
-const productShop = document.querySelectorAll('.product-shop');
-window.addEventListener('resize', () => {
-  correctShopElementsPositions();
-  setTimeout(() => {
-    correctShopElementsPositions();
-  }, 300);
-});
-window.addEventListener('load', correctShopElementsPositions);
-
-function correctShopElementsPositions() {
-  productShop.forEach(shop => {
-    correctPositions(shop);
-  });
-}
-
-function correctPositions(shop) {
-  const info = shop.querySelector('.product-shop__info');
-  const buttonWrapper = shop.querySelector('.product-shop__show-more-wrapper');
-  const button = shop.querySelector('.product-shop__show-more');
-  const infoWidth = info.getBoundingClientRect().width;
-  const line = shop.querySelector('.product-shop__dashed-line');
-  if (!button && !line) return;
-
-  const buttonHeight = button.getBoundingClientRect().height;
-  button.style.left = `${info.offsetLeft}px`;
-  button.style.width = `${infoWidth}px`;
-  buttonWrapper.style.height = `${buttonHeight}px`;
-
-  const shopsWrappers = document.querySelectorAll('.shops-wrapper');
-  shopsWrappers.forEach(shopWrapper => {
-    const list = shopWrapper.querySelector('.shops-wrapper__list');
-    const listHeight = list.getBoundingClientRect().height;
-    const isOpened = shopWrapper.classList.contains('shops-wrapper--opened');
-
-    if (isOpened) {
-      shopWrapper.style.height = `${listHeight}px`;
-    }
-  });
-}
-
-hideSimilarShops();
-
-function hideSimilarShops() {
-  const shops = [];
-  productShop.forEach(shop => {
-    shops.push(shop.dataset.shop);
-  });
-
-  const uniqueShops = Array.from(new Set(shops));
-  uniqueShops.forEach(shopName => {
-    const sameShops = document.querySelectorAll(`.product-shop[data-shop="${shopName}"]`);
-
-    if (sameShops.length < 2) return;
-    const visibleShop = sameShops[0];
-    visibleShop.classList.add('product-shop--visible')
-    const shopsWrapperArray = createShopsWrapper(visibleShop);
-    const wrapperForHiddenShops = shopsWrapperArray[0];
-    const listForHiddenShops = shopsWrapperArray[1];
-    const button = createShowMoreButton(visibleShop);
-
-    const allPrices = [];
-    let sign;
-
-    sameShops.forEach((shop, index) => {
-      let price = shop.querySelector('.price__value').textContent.trim();
-      sign = price.slice(-1).trim();
-      price = price.slice(0, price.length - 1).trim();
-      price = Number(price);
-
-      if (index !== 0) {
-        shop.remove();
-        listForHiddenShops.append(shop);
-        allPrices.push(price);
-      }
-    });
-
-    let minPrice = Math.min(...allPrices);
-    let maxPrice = Math.max(...allPrices);
-
-    let buttonHTML = '';
-    let priceText = '';
-
-    addTextToButton();
-    correctPositions(visibleShop);
-
-    button.addEventListener('click', () => {
-      const wrapperHeight = toggleHiddenShops(wrapperForHiddenShops, listForHiddenShops);
-      if (wrapperHeight === 0) {
-        button.innerHTML = 'Свернуть цены в этом магазине';
-        visibleShop.classList.add('product-shop--opened');
-      } else {
-        addTextToButton();
-        visibleShop.classList.remove('product-shop--opened');
-      }
-
-      correctPositions(visibleShop);
-    });
-
-    function addTextToButton() {
-      if (sameShops.length - 1 >= 2 && sameShops.length - 1 < 5) {
-        priceText = 'другие цены';
-      } else {
-        priceText = 'других цен';
-      }
-
-      if (sameShops.length - 1 === 1) {
-        buttonHTML = `Ещё <span>1</span> цена в этом магазине: <span>${minPrice.toFixed(2)}&nbsp;${sign}</span>`;
-      } else if (minPrice === maxPrice) {
-        buttonHTML = `Ещё <span>${sameShops.length - 1}</span> ${priceText} в этом магазине от <span>${minPrice.toFixed(2)}&nbsp;${sign}</span>`;
-      } else {
-        buttonHTML = `Ещё <span>${sameShops.length - 1}</span> ${priceText} в этом магазине от <span>${minPrice.toFixed(2)}&nbsp;${sign}</span> до <span>${maxPrice.toFixed(2)}&nbsp;${sign}</span>`;
-      }
-
-      button.innerHTML = buttonHTML;
-    }
-  });
-}
-
-function createShowMoreButton(parent) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'product-shop__show-more-wrapper';
-
-  const button = document.createElement('button');
-  button.className = 'product-shop__show-more';
-  button.setAttribute('type', 'button');
-  wrapper.append(button);
-
-  const line = document.createElement('span');
-  line.className = 'product-shop__dashed-line';
-  wrapper.append(line);
-
-  parent.append(wrapper);
-
-  return button;
-}
-
-function createShopsWrapper(parent) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'shops-wrapper';
-
-  const list = document.createElement('div');
-  list.className = 'shops-wrapper__list';
-
-  wrapper.append(list);
-  parent.insertAdjacentElement('afterend', wrapper);
-  return [wrapper, list];
-}
-
-function toggleHiddenShops(wrapper, list) {
-  const listHeight = list.getBoundingClientRect().height;
-  const wrapperHeight = wrapper.getBoundingClientRect().height;
-  const isOpened = wrapper.classList.contains('shops-wrapper--opened');
-
-  if (isOpened) {
-    wrapper.style.height = 0;
-    wrapper.classList.remove('shops-wrapper--opened');
-  } else {
-    wrapper.style.height = `${listHeight}px`;
-    wrapper.classList.add('shops-wrapper--opened');
-  }
-
-  return wrapperHeight;
 }
