@@ -537,7 +537,7 @@ body {
   z-index: 10;
   top: 0;
   right: 0px;
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
 }
 
 .discount div {
@@ -556,7 +556,7 @@ body {
   font-size: 16px;
   font-weight: 700;
 
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
 }
 
 .header {
@@ -1120,6 +1120,10 @@ body {
   overflow-y: auto;
   padding-left: 10px;
   padding-right: 5px;
+}
+
+.sidebar-list--scroll {
+  padding-right: 0;
 }
 
 .sidebar-list__item {
@@ -4222,7 +4226,7 @@ svg[data-conflict-id].fixed.fixed--prev {
 }
 
 .assemblage-parts .product__title .product__title-block {
-  transition: transform 0.2s linear;
+  transition: transform 0.1s linear;
 }
 
 .assemblage-parts .product__title .product__short-description {
@@ -4232,7 +4236,7 @@ svg[data-conflict-id].fixed.fixed--prev {
   line-height: 25px;
   color: #807979;
   opacity: 1;
-  transition: opacity 0.2s linear, transform 0.2s linear;
+  transition: opacity 0.1s linear, transform 0.1s linear;
 }
 
 .assemblage-parts :not(.product--collapsed) .product__title .product__link .product__short-description {
@@ -4271,7 +4275,7 @@ svg[data-conflict-id].fixed.fixed--prev {
 
 .assemblage-parts .product--collapsed .product__title .product__price-and-buttons {
   flex-shrink: 0;
-  animation: appearing 0.3s ease-in-out;
+  animation: appearing 0.2s ease-in-out;
   pointer-events: all;
   min-height: 30px;
 }
@@ -4293,7 +4297,7 @@ svg[data-conflict-id].fixed.fixed--prev {
   will-change: height;
   height: 0;
   transform: translateZ(0);
-  transition: height 0.2s linear;
+  transition: height 0.1s linear;
 }
 
 .assemblage-parts .product--collapsed .product__title .product__button {
@@ -4385,7 +4389,7 @@ svg[data-conflict-id].fixed.fixed--prev {
   display: block;
   margin: 15px;
   transform: scaleY(-1);
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .assemblage-parts .product__image-wrapper {
@@ -5014,6 +5018,25 @@ svg[data-conflict-id].fixed.fixed--prev {
 .product__assembly-details .product__item-link {
   margin: 0 0 10px;
 }
+
+
+/* vertical scroll start */
+.simplebar-track.simplebar-vertical {
+  width: 7px;
+}
+
+.simplebar-scrollbar.simplebar-visible::before {
+  width: 5px;
+  opacity: 1;
+  background-color: #bfbfbf;
+  border-radius: 3px;
+}
+
+.simplebar-scrollbar.simplebar-visible:hover::before {
+  background: #aaa;
+}
+/* vertical scroll end */
+
 
 @media (max-width: 1625px) {
   .navigation {

@@ -501,12 +501,11 @@ function setConflictsLines(id, conflicts, target) {
       </svg>
     `
     target.querySelector('.sidebar__pc-parts').insertAdjacentHTML('beforeend', line)
-  }, 210);
+  }, 150);
 }
 
 function setConflictsLines2(id, ...conflicts) {
   setTimeout(() => {
-
     if (!conflicts[0]) {
       console.log('setConflictsLines2 return coz no conflicts');
       return;
@@ -554,7 +553,7 @@ function setConflictsLines2(id, ...conflicts) {
       </svg>
     `
     document.querySelector('.assemblage-parts').insertAdjacentHTML('beforeend', line)
-  }, 210);
+  }, 150);
 }
 
 //---
@@ -665,7 +664,7 @@ function managePriceAndButtonMove(part) {
     setTimeout(() => {
       title.append(priceAndButton);
       mainPart.style.paddingBottom = `${priceAndButtonHeight}px`;
-    }, 200);
+    }, 100);
 
   } else {
     productDescr.insertAdjacentElement('afterend', priceAndButton);
@@ -2834,6 +2833,25 @@ function manageShopShowMore() {
   }
 }
 //PRODUCTS SHOP SHOW MORE END
+
+
+// ==========================
+// vertical scroll start
+manageVerticalScroll();
+function manageVerticalScroll() {
+  const scrollBlocks = document.querySelectorAll('.vertical-scroll');
+  if (scrollBlocks.length === 0) return;
+
+  scrollBlocks.forEach(block => {
+    new SimpleBar(block, {
+      autoHide: false
+    });
+  });
+}
+// vertical scroll end
+// ==========================
+
+
 
 function manageBeta() {
   if ((new URLSearchParams(location.search)).has('beta')) {
