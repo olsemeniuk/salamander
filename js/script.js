@@ -1024,10 +1024,11 @@ function manage() {
           photosTab.insertAdjacentHTML(
             'beforeend',
             `<div class="product-description__image-wrapper">
-							<img src="${src}" class="product-description__image"></img>
+							<img width="600" height="340" src="${src}" class="product-description__image"></img>
 						</div>`
-          )
-        })
+          );
+        });
+        photosTab.style.minHeight = 'unset';
       }
       const tabs = productTabsWrapper.querySelectorAll('.product-tabs__item')
       tabs.forEach(tab => {
