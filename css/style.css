@@ -663,6 +663,7 @@ body {
   -ms-flex-pack: center;
   justify-content: center;
   width: 234px;
+  min-height: 74px;
   height: 100%;
   background-color: #da0b29;
 }
@@ -2405,6 +2406,10 @@ svg[data-conflict-id].fixed.fixed--prev {
   object-position: center;
 }
 
+.assemblage-parts__part .product__image-wrapper .product__image {
+  height: 100%;
+}
+
 .product__main-part {
   padding: 0 20px 20px 20px;
 }
@@ -2463,6 +2468,7 @@ svg[data-conflict-id].fixed.fixed--prev {
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  min-width: 110px;
 }
 
 .product__rating {
@@ -4372,7 +4378,6 @@ svg[data-conflict-id].fixed.fixed--prev {
   padding-right: 20px;
   position: relative;
   pointer-events: all;
-
   display: flex;
   align-items: center;
 }
@@ -5418,7 +5423,7 @@ svg[data-conflict-id].fixed.fixed--prev {
 
   .assemblage-parts .product {
     max-height: 100%;
-    min-height: 110px;
+    min-height: 111px;
   }
 
   .assemblage-parts .product:not(.product--collapsed) .product__title {
@@ -5437,7 +5442,7 @@ svg[data-conflict-id].fixed.fixed--prev {
     }
   }
 
-  .assemblage-parts .product .product__link {
+  .assemblage-parts .product .product__link:not(.product__image-wrapper) {
     padding-bottom: 15px;
     padding-right: 50px;
   }
