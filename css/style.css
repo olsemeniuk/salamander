@@ -4187,6 +4187,8 @@ svg[data-conflict-id].fixed.fixed--prev {
 
 .assemblage-parts {
   position: relative;
+
+  min-height: 600px;
 }
 
 .assemblage-parts__part {
