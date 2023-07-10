@@ -2398,6 +2398,12 @@ svg[data-conflict-id].fixed.fixed--prev {
   max-height: 100%;
 }
 
+.product__image-wrapper .product__image {
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
 .product__main-part {
   padding: 0 20px 20px 20px;
 }

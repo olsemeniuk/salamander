@@ -684,7 +684,7 @@ function manageAssemblagePartHeight(part) {
     partCover.style.height = `${wrapperHeight}px`;
     setTimeout(() => {
       partCover.style.height = `auto`;
-    }, 200);
+    }, 100);
   } else {
     partCover.style.height = `${wrapperHeight}px`;
     setTimeout(() => {
