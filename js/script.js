@@ -2852,6 +2852,17 @@ function manageVerticalScroll() {
 // vertical scroll end
 // ==========================
 
+// ===================
+// blocks sizes start
+manageBlocksHeight();
+
+function manageBlocksHeight() {
+  const headerLogo = document.querySelector('.header__logo');
+  headerLogo.removeAttribute('style')
+}
+// blocks sizes end
+// ===================
+
 
 
 function manageBeta() {
