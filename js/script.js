@@ -959,9 +959,8 @@ window.addEventListener('resize', onResize)
 
 
 //----------------
-// if (readyToManage) readyToManage.then(manage);
-// else manage();
-manage();
+if (readyToManage) readyToManage.then(manage);
+else manage();
 
 // function initManage(){
 // 	manage();
@@ -972,10 +971,10 @@ function manage() {
   //manageFilter();
   manageStars();
   manageTabs();
-  // manageMessageBoxes();
+  manageMessageBoxes();
   manageConflictsTitles();
   manageRandomSmiles();
-  // manageSort();
+  manageSort();
   manageSocialButtons();
   manageShopShowMore();
   manageRegion();
