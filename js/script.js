@@ -581,7 +581,7 @@ function managePageConflicts() {
       titleLinks.addEventListener('click', () => {
         part.classList.toggle('product--collapsed');
 
-        managePriceAndButtonMove(part);
+        // managePriceAndButtonMove(part);
         manageAssemblagePartHeight(part);
 
         const conflictsSVG = target.querySelectorAll('svg[data-conflict-id]')
@@ -643,12 +643,12 @@ function managePageConflicts() {
   }
 }
 
-const assemblageParts = document.querySelectorAll('.assemblage-parts__part');
-if (assemblageParts.length > 0) {
-  assemblageParts.forEach(part => {
-    managePriceAndButtonMove(part);
-  });
-}
+// const assemblageParts = document.querySelectorAll('.assemblage-parts__part');
+// if (assemblageParts.length > 0) {
+//   assemblageParts.forEach(part => {
+//     managePriceAndButtonMove(part);
+//   });
+// }
 
 function managePriceAndButtonMove(part) {
   const priceAndButton = part.querySelector('.product__price-and-buttons');
